@@ -115,8 +115,10 @@ public class MainFrame extends JFrame implements ActionListener {
 		            viewTxtArea.setText(Cryptography.decryptAESwithExceptions(StringUtils.getBetween(Steganography.readFileAsString(file), Boot.DATA_TAG), key, loadedFileIV));
 		            loadedFileData = Steganography.readFileBytes(file);
 		            
+		            // TODO clean this crap up (along with the entire program)
+		            
 		            byte[] loadedFileDataCP = loadedFileData;
-		            loadedFileData = new byte[loadedFileDataCP.length - (Boot.DATA_TAG + StringUtils.getBetween(Steganography.readFileAsString(file), Boot.DATA_TAG) + Boot.DATA_TAG).length()];
+		            loadedFileData = new byte[loadedFileDataCP.length - (Boot.DATA_TAG + StringUtils.getBetween(Steganography.readFileAsString(file), Boot.DATA_TAG) + Boot.DATA_TAG + Boot.IV_TAG + StringUtils.getBetween(Steganography.readFileAsString(file), Boot.IV_TAG) + Boot.IV_TAG).length()];
 		            for(int i = 0; i < loadedFileData.length; i++) {
 		                loadedFileData[i] = loadedFileDataCP[i];
 		            }
